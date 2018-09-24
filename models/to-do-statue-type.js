@@ -4,9 +4,9 @@ var Schema = mongoose.Schema;
 
 var ToDoStatusType = new Schema({
     id: Number,
-    title: 'string'
- });
+    title: String,
+});
 
-var ToDoStatusType = mongoose.model('ToDoStatusType', ToDoStatusType);
+var ToDoStatusType = mongoose.model('todosatustype', ToDoStatusType);
 
 module.exports = ToDoStatusType;

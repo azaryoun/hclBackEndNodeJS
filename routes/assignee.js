@@ -7,28 +7,24 @@ var Assignee = require('./../models/assignee');
 
 router.get('/getLookUps', function (request, response) {
 
-    var oDatum = null
+    var oDatum = [];
 
-    Assignee.find({}, function (error, assignees) {
+
+    Assignee.find({}, { id: 1, title: 1, _id: 0 }, function (error, assignees) {
 
         if (error) {
 
-            console.log(error);
-            console.log('db error');
-
-            oMessage.message = error;
-            response.status(500).send(oMessage);
+            response.status(500).send('db error');
             return;
         }
-        oDatum = assignees
-    }).sort({ "title": 1 });
 
+        oDatum = assignees;
+        var strServerMessage = "";
+        var blnIsDone = true;
+        response.json({ isDone: blnIsDone, serverMessage: strServerMessage, datum: oDatum });
 
-    var strServerMessage = "";
-    var blnIsDone = true;
+    });
 
-
-    response.json({ isDone: blnIsDone, serverMessage: strServerMessage, datum: oDatum });
 
 });
 

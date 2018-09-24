@@ -22,7 +22,11 @@ router.post('/login', function (request, response) {
         var strPayload = JSON.stringify(oPayload);
 
         var strPayloadHashed = bcrypt.hashSync(strPayload);
-        oDatum = strPayloadHashed;
+
+        var oJasonWebToke={
+            payLoad:strPayloadHashed
+        }
+        oDatum = oJasonWebToke;
     }
     else {
         strServerMessage = 'Invalid username or password';

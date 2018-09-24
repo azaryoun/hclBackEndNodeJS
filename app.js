@@ -14,13 +14,11 @@ app.use(function (request, response, next) {
     response.setHeader('Access-Control-Allow-Origin', '*');
 
     //Request methods you wish to allow
-    response.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
 
+    response.header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,PATCH,OPTIONS");
     //Request headers you wish to allow
-    response.setHeader('Access-Control-Allow-Headers', 'Accept,content-type,Authorization');
-    response.setHeader('Access-Control-Allow-Credentials', true);
+    response.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept,Authorization,authorization');
 
-    //  Pass to next layer of middleware
     next();
 
 });
@@ -42,43 +40,32 @@ const PATH_PREFIX = '/api/'
 
 //Authetication middleware
 
-app.all('*', function (request, response, next) {
-
-    if (request.originalUrl == '/api/administration/Account/login') {
-        next();
-        return;
+app.use(function (request, response, next) {
+    if (request.originalUrl == '/api/administration/Account/login' || request.method == 'OPTIONS') {
+        return next();
     }
-    var strAutorizarion = request.headers['authorization'];
-
-    if (strAutorizarion == null) {
-        response.status(401).write('Unauhorized');
-        console.log('Unauhorized');
-        return;
-
+    if (!request.headers.authorization) {
+        return response.status(401).json({ error: 'No credentials sent!' });
     }
-    response.setHeader('Authorization', strAutorizarion)
-    console.log('Authorization');
-
-    next(); //goto next app.all (middleware)
-
+    var strAutorizarion = request.headers.authorization;
+    response.setHeader('authorization', strAutorizarion)
+    next();
 });
 
 
 // the routes
 
 var accountRoute = require('./routes/account');
-app.use(PATH_PREFIX + '/administration/Account', accountRoute);
+app.use(PATH_PREFIX + 'administration/Account', accountRoute);
 
 var toDoRoute = require('./routes/to-do');
-app.use(PATH_PREFIX + '/administration/ToDo', toDoRoute);
+app.use(PATH_PREFIX + 'administration/ToDo', toDoRoute);
 
 var toDoStatusTypeRoute = require('./routes/to-do-statue-type');
-app.use(PATH_PREFIX + '/lookUp/ToDoStatusType', toDoStatusTypeRoute);
+app.use(PATH_PREFIX + 'lookUp/ToDoStatusType', toDoStatusTypeRoute);
 
 var assigneeRoute = require('./routes/assignee');
-app.use(PATH_PREFIX + '/lookUp/Assignee', assigneeRoute);
-
-
+app.use(PATH_PREFIX + 'lookUp/Assignee', assigneeRoute);
 
 
 //Luanching NodeJS  Web Server 

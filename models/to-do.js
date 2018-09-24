@@ -3,15 +3,16 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var toDoSchema = new Schema({
+    id: Number,
     task: String,
-    statusId: Number,
+    statusTitle: String,
     priority: String,
-    dueDate: Date,
-    assigneeId: Number,
+    dueDateTitle: String,
+    assigneeTitle: String,
     notes: String,
 
 });
 
-var ToDo = mongoose.model('ToDo', toDoSchema);
+var ToDo = mongoose.model('todo', toDoSchema);
 
 module.exports = ToDo;

@@ -4,10 +4,10 @@ var Schema = mongoose.Schema;
 
 var assigneeSchema = new Schema({
     id: Number,
-    title: 'string',
+    title: String,
  
 });
 
-var Assignee = mongoose.model('Assignee', assigneeSchema);
+var Assignee = mongoose.model('assignee', assigneeSchema);
 
 module.exports = Assignee;
