@@ -1,7 +1,7 @@
 var express = require('express');
 
 var router = express.Router();
-var ToDoStatusType = require('./../models/to-do-statue-type');
+var ToDoStatusType = require('../models/to-do-statue-type');
 
 
 router.get('/getLookUps', function (request, response) {

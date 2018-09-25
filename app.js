@@ -61,7 +61,7 @@ app.use(PATH_PREFIX + 'administration/Account', accountRoute);
 var toDoRoute = require('./routes/to-do');
 app.use(PATH_PREFIX + 'administration/ToDo', toDoRoute);
 
-var toDoStatusTypeRoute = require('./routes/to-do-statue-type');
+var toDoStatusTypeRoute = require('./routes/to-do-status-type');
 app.use(PATH_PREFIX + 'lookUp/ToDoStatusType', toDoStatusTypeRoute);
 
 var assigneeRoute = require('./routes/assignee');
