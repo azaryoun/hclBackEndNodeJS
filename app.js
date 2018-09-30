@@ -1,10 +1,11 @@
 
 var express = require('express'); //Part of mEan framework
-var app = express(); //Luanch ExpressJS
+var app = express(); // Luanch ExpressJS
 var morgan = require('morgan'); //Logger
-var bodyParser = require('body-parser'); //Used for working with Posted data (form elements)
-var config = require('./user_modules/config');
+var bodyParser = require('body-parser'); // Used for working with Posted data (form elements)
 var server = require('http').createServer(app); //Create Server
+
+require('dotenv').config(); //loading envinronmet variables from .env file (if exists)
 
 
 app.use(function (request, response, next) {
@@ -23,9 +24,13 @@ app.use(function (request, response, next) {
 
 });
 
+
+
 var mongoose = require('mongoose'); // MongoDB Entity Framewrok or ORM
 try {
-    mongoose.connect(config.CONNECTION_STRING);
+    const CONNECTION_STRING = process.env.CONNECTION_STRING || 'mongodb://localhost:27017/local';
+
+    mongoose.connect(CONNECTION_STRING);
 } catch (err) {
     console.log('DB Service is Off')
     return;
@@ -70,7 +75,7 @@ app.use(PATH_PREFIX + 'lookUp/Assignee', assigneeRoute);
 
 //Luanching NodeJS  Web Server 
 
-const SERVER_PORT = 22511;
+const SERVER_PORT = process.env.port || 22511;
 
 server.listen(SERVER_PORT, function () {
 
