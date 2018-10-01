@@ -5,7 +5,7 @@ var morgan = require('morgan'); //Logger
 var bodyParser = require('body-parser'); // Used for working with Posted data (form elements)
 var server = require('http').createServer(app); //Create Server
 
-require('dotenv').config(); //loading envinronmet variables from .env file (if exists)
+require('dotenv').config(); // loading envinronmet variables from .env file (if exists)
 
 
 app.use(function (request, response, next) {
@@ -28,6 +28,7 @@ app.use(function (request, response, next) {
 
 var mongoose = require('mongoose'); // MongoDB Entity Framewrok or ORM
 try {
+  
     const CONNECTION_STRING = process.env.CONNECTION_STRING || 'mongodb://localhost:27017/local';
 
     mongoose.connect(CONNECTION_STRING);
